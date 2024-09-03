@@ -1,22 +1,20 @@
-<div mat-dialog-content style="height: 65vh">
-  <div style="display: Flex">
-    <button mat-raised-button color="warning" (click)="close()">
-      {{ settings.lang.close }}
-    </button>
-    <button mat-raised-button style="color: red" (click)="clearHelper()">
+<div mat-dialog-content class="dialog-content" style="min-height: 70vh;">
+  <button mat-icon-button class="close-button" (click)="close()" aria-label="Close dialog">
+    <mat-icon>close_small</mat-icon>
+  </button>
+
+  <div class="button-row" *ngIf="args && args.location">
+    <button mat-raised-button color="warning" (click)="clearHelper()">
       {{ settings.lang.clear }}
     </button>
     <button
       mat-raised-button
       color="accent"
       (click)="byLocation()"
-      *ngIf="args && args.location"
     >
       {{ settings.lang.byLocation }}
     </button>
-    <button mat-raised-button color="primary" (click)="addHelper()">
-      {{ settings.lang.new }}
-    </button>
+
   </div>
   <mat-checkbox
     [(ngModel)]="args.includeFrozen"
@@ -36,7 +34,7 @@
         placeholder="{{ settings.lang.searchVolunteer }}"
         [ngModelOptions]="{ standalone: true }"
       />
-      <mat-icon matSuffix (click)="searchString = ''">clear</mat-icon>
+      <mat-icon matSuffix (click)="searchString = ''">backspace</mat-icon>
     </mat-form-field>
     <h4 *ngIf="showingRecentHelpers">{{ settings.lang.recentVolunteers }}</h4>
 
@@ -79,12 +77,18 @@
       <mat-divider></mat-divider>
     </div>
   </form>
+  <div class="button-row">
   <button
     mat-raised-button
     color="accent"
     (click)="moreHelpers()"
     *ngIf="showingRecentHelpers || filteredHelpers.length == limit"
+    style="margin-left: 10px"
   >
     {{ settings.lang.moreVolunteers }}
   </button>
+  <button mat-raised-button color="primary" (click)="addHelper()">
+    {{ settings.lang.newVolunteer }}
+    </button>
+  </div>
 </div>
